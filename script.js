@@ -16,76 +16,7 @@ function init() {
   ])
 
   /**
-   * 1 Dekho
-   */
-  {
-    const scene = new THREE.Scene();
-    const element = document.createElement('div');
-    element.className = 'list-item';
-    const sceneElement = document.createElement('div');
-    element.appendChild(sceneElement);
-    scene.userData.element = sceneElement;
-    content.appendChild(element);
-
-    //toneMapping
-    environmentMap.encoding = THREE.sRGBEncoding
-    scene.environment = environmentMap
-
-    const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 10);
-    scene.userData.camera = camera;
-    camera.position.set(1, 0.45, -2)
-
-    controls = new OrbitControls(scene.userData.camera, scene.userData.element);
-
-    controls.maxDistance = 6;
-    controls.enablePan = true;
-    controls.panSpeed = 0.5
-    controls.enableZoom = true;
-    controls.autoRotate = true
-    controls.autoRotateSpeed = -0.5
-    controls.enableDamping = true
-    scene.userData.controls = controls;
-
-    gltfLoader.load(
-      './models/dekho6.glb',
-      (gltf) => {
-        // gltf.scene.scale.set(2, 2, 2)
-        gltf.scene.rotation.y = Math.PI * 0.5
-        scene.add(gltf.scene)
-        updateAllMaterials()
-      }
-    )
-
-    const updateAllMaterials = () => {
-
-      scene.traverse((child) => {
-        if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial) {
-          child.material.envMapIntensity = 1
-          child.material.needsUpdate = true
-          child.castShadow = true
-          child.receiveShadow = true
-        }
-      })
-    }
-
-    /**
-     * Lights
-     */
-    const directionalLight = new THREE.DirectionalLight('white', 4)
-    directionalLight.position.set(1.65, 3.4, -1.95)
-    directionalLight.castShadow = true
-    directionalLight.shadow.camera.far = 15
-    directionalLight.shadow.mapSize.set(1024, 1024)
-    directionalLight.shadow.normalBias = 0.02
-    // directionalLight.shadow.bias = 0.02
-    scene.add(directionalLight)
-
-
-    scenes.push(scene);
-  }
-
-  /**
-   * 2 Hodor
+   * 1 Hodor
    */
   {
     const scene = new THREE.Scene();
@@ -155,7 +86,7 @@ function init() {
   }
 
   /**
-   * 3 DINO 1
+   * 2 DINO 1
    */
   {
     const scene = new THREE.Scene();
@@ -233,7 +164,7 @@ function init() {
   }
 
   /**
-   * 4 Leopard
+   * 3 Leopard
    */
   {
     const scene = new THREE.Scene();
@@ -265,7 +196,7 @@ function init() {
 
 
     gltfLoader.load(
-      './models/2_b.glb',
+      './models/2_b2.glb',
       (gltf) => {
         // mixer = new THREE.AnimationMixer(gltf.scene)
         // const action = mixer.clipAction(gltf.animations[1])
@@ -320,6 +251,75 @@ function init() {
     const light = new THREE.DirectionalLight(0xffffff, 0.5);
     light.position.set(1, 1, -1);
     scene.add(light);
+
+    scenes.push(scene);
+  }
+
+  /**
+   * 4 Dekho
+   */
+  {
+    const scene = new THREE.Scene();
+    const element = document.createElement('div');
+    element.className = 'list-item';
+    const sceneElement = document.createElement('div');
+    element.appendChild(sceneElement);
+    scene.userData.element = sceneElement;
+    content.appendChild(element);
+
+    //toneMapping
+    environmentMap.encoding = THREE.sRGBEncoding
+    scene.environment = environmentMap
+
+    const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 10);
+    scene.userData.camera = camera;
+    camera.position.set(1, 0.45, -2)
+
+    controls = new OrbitControls(scene.userData.camera, scene.userData.element);
+
+    controls.maxDistance = 6;
+    controls.enablePan = true;
+    controls.panSpeed = 0.5
+    controls.enableZoom = true;
+    controls.autoRotate = true
+    controls.autoRotateSpeed = -0.5
+    controls.enableDamping = true
+    scene.userData.controls = controls;
+
+    gltfLoader.load(
+      './models/dekho6.glb',
+      (gltf) => {
+        // gltf.scene.scale.set(2, 2, 2)
+        gltf.scene.rotation.y = Math.PI * 0.5
+        scene.add(gltf.scene)
+        updateAllMaterials()
+      }
+    )
+
+    const updateAllMaterials = () => {
+
+      scene.traverse((child) => {
+        if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial) {
+          child.material.envMapIntensity = 1
+          child.material.needsUpdate = true
+          child.castShadow = true
+          child.receiveShadow = true
+        }
+      })
+    }
+
+    /**
+     * Lights
+     */
+    const directionalLight = new THREE.DirectionalLight('white', 4)
+    directionalLight.position.set(1.65, 3.4, -1.95)
+    directionalLight.castShadow = true
+    directionalLight.shadow.camera.far = 15
+    directionalLight.shadow.mapSize.set(1024, 1024)
+    directionalLight.shadow.normalBias = 0.02
+    // directionalLight.shadow.bias = 0.02
+    scene.add(directionalLight)
+
 
     scenes.push(scene);
   }
